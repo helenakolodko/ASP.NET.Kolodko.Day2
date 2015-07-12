@@ -16,12 +16,12 @@ namespace Task3.Library
         /// <param name="degree">Degree of the root</param>
         /// <param name="precision">Precision of the result</param>
         /// <returns>Root of the given degree</returns>
-        /// <exception cref="ArgumentException">Thrown when <see cref="degree"/> is negative number, or <see cref="x"/> is negative and <see cref="degree"/> is an even number.</exception>
+        /// <exception cref="ArgumentException">Thrown when <see cref="degree"/> is non-positive number, or <see cref="x"/> is negative and <see cref="degree"/> is an even number.</exception>
         public static double NewtonRoot(double x, int degree, double precision)
         {
-            if (degree < 0)
+            if (degree <= 0)
             {
-                throw new ArgumentException("Can't calculate root of negative degree.", "degree");
+                throw new ArgumentException("Can't calculate root of non-positive degree.", "degree");
             }
             if (x < 0 && degree % 2 == 0)
             {

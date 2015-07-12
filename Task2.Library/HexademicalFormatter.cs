@@ -29,21 +29,25 @@ namespace Task2.Library
         {
             if (!this.Equals(formatProvider))
                 return null;
-            if (arg == null || format != "X")
-                return string.Format(parent, "{0:" + format + "}", arg);
-
-            long value;
-            if (Int64.TryParse(arg.ToString(), out value))
+            if (arg != null && (format == null || format == "X"))
             {
-                return ToHexademical(value);  
+                long value;
+                if (Int64.TryParse(arg.ToString(), out value))
+                {
+                    return ToHexademical(value);
+                }
+                else
+                {
+                    throw new FormatException("Invalid format specifier.");
+                }
             }
             else
             {
-                throw new FormatException("Invalid format specifier.");
-            }                 
+                return string.Format(parent, "{0:" + format + "}", arg);
+            }              
         }
 
-        private static string ToHexademical(int value)
+        private static string ToHexademical(long value)
         {
             StringBuilder result = new StringBuilder();
             if (value < 0)
