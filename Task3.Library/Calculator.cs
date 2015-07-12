@@ -83,7 +83,7 @@ namespace Task3.Library
         /// <exception cref="ArgumentException">Thrown when at least one argument is a negative number.</exception>
         public static int EuclideanGCD(int a, int b, int c)
         {
-            return gdc = EuclideanGCD(EuclideanGCD(a, b), c);
+            return EuclideanGCD(EuclideanGCD(a, b), c);
         }
 
         /// <summary>
@@ -106,6 +106,95 @@ namespace Task3.Library
                 a = temp;
             }
             return a;
+        }
+
+        /// <summary>
+        /// Calculates Greatest Common Devisor of numbers using Binary GCD Algorithm.
+        /// </summary>
+        /// <param name="timeTaken">Stores time taken by calculation.</param>
+        /// <param name="numbers">Natural numbers.</param>
+        /// <returns>Greatest Common Devisor of <see cref="numbers"/>.</returns>
+        public static int BinaryGCD(out TimeSpan timeTaken, params int[] numbers)
+        {
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            int gdc = BinaryGCD(numbers);
+            timeTaken = stopwatch.Elapsed;
+            return gdc;
+        }
+
+        /// <summary>
+        /// Calculates Greatest Common Devisor of numbers using Binary GCD Algorithm.
+        /// </summary>
+        /// <param name="numbers">Natural numbers.</param>
+        /// <returns>Greatest Common Devisor of <see cref="numbers"/>.</returns>
+        /// <exception cref="ArgumentException">Thrown when less than two <see cref="numbers"/> provided.</exception>
+        public static int BinaryGCD(params int[] numbers)
+        {
+            int gdc = 1;
+            if (numbers.Length < 2)
+            {
+                throw new ArgumentException("Can't calculate GCD of less than two numbers.");
+            }
+            gdc = BinaryGCD(numbers[0], numbers[1]);
+            for (int i = 2; i < numbers.Length; i++)
+            {
+                gdc = BinaryGCD(gdc, numbers[i]);
+            }
+            return gdc;
+        }
+
+        /// <summary>
+        /// Calculates Greatest Common Devisor of three numbers using Binary GCD Algorithm.
+        /// </summary>
+        /// <param name="a">First natural number.</param>
+        /// <param name="b">Second natural number.</param>
+        /// <param name="c">Third natural number.</param>
+        /// <returns>Greatest Common Devisor of <see cref="a"/>, <see cref="b"/> and <see cref="c"/>.</returns>
+        /// <exception cref="ArgumentException">Thrown when at least one argument is a negative number.</exception>
+        public static int BinaryGCD(int a, int b, int c)
+        {
+            return BinaryGCD(BinaryGCD(a, b), c);
+        }
+
+        /// <summary>
+        /// Calculates Greatest Common Devisor of two numbers using Binary GCD Algorithm.
+        /// </summary>
+        /// <param name="a">First natural number.</param>
+        /// <param name="b">Second natural number.</param>
+        /// <returns>Greatest Common Devisor of <see cref="a"/> and <see cref="b"/>.</returns>
+        /// <exception cref="ArgumentException">Thrown when at least one argument is a negative number.</exception>
+        public static int BinaryGCD(int a, int b)
+        {
+            if (a < 0 || b < 0)
+            {
+                throw new ArgumentException("Can't calculate GCD of negative numbers.");
+            }
+
+            int shift;
+            if (a == 0) return b;
+            if (b == 0) return a;
+
+            for (shift = 0; ((a | b) & 1) == 0; ++shift)
+            {
+                a >>= 1;
+                b >>= 1;
+            }
+
+            while ((a & 1) == 0)
+                a >>= 1;
+
+            do
+            {
+                while ((b & 1) == 0)
+                    b >>= 1;
+                if (a > b)
+                {
+                    int t = b; b = a; a = t;
+                }
+                b = b - a;
+            } while (b != 0);
+
+            return a << shift;
         }
     }
 }
