@@ -30,7 +30,11 @@ namespace Task2.Library
         {
             if (!this.Equals(formatProvider))
                 return null;
-            if (arg != null && (format == null || format == "X"))
+            if (arg == null || (format != null && format != "X"))
+            {
+                return string.Format(parent, "{0:" + format + "}", arg);                
+            }
+            else
             {
                 long value;
                 if (long.TryParse(arg.ToString(), out value))
@@ -46,10 +50,6 @@ namespace Task2.Library
                 {
                     throw new FormatException("Invalid format specifier.");
                 }
-            }
-            else
-            {
-                return string.Format(parent, "{0:" + format + "}", arg);
             }              
         }
 
