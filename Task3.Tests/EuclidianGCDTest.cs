@@ -1,10 +1,10 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Task3.Tests
+namespace Task2.Tests
 {
     [TestClass]
-    public class UnitTest1
+    public class EuclidianGCDTest
     {
         [TestMethod]
         public void TestMethod1()

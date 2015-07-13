@@ -1,10 +1,10 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace Task2.Tests
 {
     [TestClass]
-    public class UnitTest1
+    class BinaryGCDTest
     {
         [TestMethod]
         public void TestMethod1()
