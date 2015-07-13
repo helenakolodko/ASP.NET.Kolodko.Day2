@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Task2.Library
 {
-    class HexademicalFormatter: IFormatProvider, ICustomFormatter
+    public class HexademicalFormatter: IFormatProvider, ICustomFormatter
     {
         private IFormatProvider parent;
         private static string digits = "0123456789ABCDEF";
@@ -33,9 +33,14 @@ namespace Task2.Library
             if (arg != null && (format == null || format == "X"))
             {
                 long value;
-                if (Int64.TryParse(arg.ToString(), out value))
+                if (long.TryParse(arg.ToString(), out value))
                 {
-                    return ToHexademical(value);
+                    int bits = 64;
+                    if (arg is int)
+                    {
+                        bits = 32;
+                    }
+                    return ToHexademical(value, bits);
                 }
                 else
                 {
@@ -48,21 +53,27 @@ namespace Task2.Library
             }              
         }
 
-        private static string ToHexademical(long value)
+        private static string ToHexademical(long value, int bits)
         {
-            StringBuilder result = new StringBuilder();
+            char[] result = new char[bits/4];
+            ulong valueRepresentaion = GetRepresentation(value);
+            for (int i = result.Length - 1; valueRepresentaion > 0 && i >= 0; i--)
+            {
+                byte digit = (byte)(valueRepresentaion % 16);
+                valueRepresentaion /= 16;
+                result[i] = digits[digit];
+            }
+            return new string(result).Trim('\0');
+        }
+
+        private static ulong GetRepresentation(long value)
+        {
+            ulong valueRepresentaion = (ulong)value;
             if (value < 0)
             {
-                value = ~Math.Abs(value) + 1;
+                valueRepresentaion = (ulong)~Math.Abs(value) + 1;
             }
-            while (value > 15)
-            {
-                byte digit = (byte)(value % 16);
-                value /= 16;
-                result.Append(digits[digit]);
-            }
-            result.Append(digits[value]);
-            return result.ToString();
+            return valueRepresentaion;
         }
     }
 }
