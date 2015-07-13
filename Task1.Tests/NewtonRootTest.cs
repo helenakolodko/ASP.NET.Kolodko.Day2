@@ -10,56 +10,51 @@ namespace Task1.Tests
         [TestMethod]
         public void SquareRootOfFourEqualsTwo()
         {
+            double value = 4;
+            int degree = 2;
             double precision = 0.00001;
-            double diviation = GetDiviation(4, 2, precision);
-            Assert.IsTrue(diviation < Math.Abs(precision));
+            Assert.AreEqual(Math.Pow(value, 1d / degree), Calculator.NewtonRoot(value, degree, precision), precision);
         }
 
         [TestMethod]
         public void FourthRootOfEightyOneEqualsThree()
         {
+            double value = 81;
+            int degree = 4;
             double precision = 0.00001;
-            double diviation = GetDiviation(81, 4, precision);
-            Assert.IsTrue(diviation < Math.Abs(precision));
+            Assert.AreEqual(Math.Pow(value, 1d / degree), Calculator.NewtonRoot(value, degree, precision), precision);
         }
 
         [TestMethod]
         public void ThirdRootOfEightThousandthEqualsTwoTenth()
         {
+            double value = 0.008;
+            int degree = 2;
             double precision = 0.00001;
-            double diviation = GetDiviation(0.008, 2, precision);
-            Assert.IsTrue(diviation < Math.Abs(precision));
+            Assert.AreEqual(Math.Pow(value, 1d / degree), Calculator.NewtonRoot(value, degree, precision), precision);
         }
 
         [TestMethod]
         public void TenthRootOfOneThousandTwentyFourEqualsTwo()
         {
+            double value = 1024;
+            int degree = 2;
             double precision = 0.00001;
-            double diviation = GetDiviation(1024, 10, precision);
-            Assert.IsTrue(diviation < Math.Abs(precision));
+            Assert.AreEqual(Math.Pow(value, 1d / degree), Calculator.NewtonRoot(value, degree, precision), precision);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void SquareRootOfMinusFourThrowsException()
         {
-            double precision = 0.00001;
-            double diviation = GetDiviation(-4, 2, precision);
+            Calculator.NewtonRoot(-4, 2, 0.00001);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void ZeroRootOfFourThrowsException()
         {
-            double precision = 0.00001;
-            double diviation = GetDiviation(4, 0, precision);
-        }
-
-        private static double GetDiviation(double value, int degree, double precision)
-        {
-            double NewtonResult = Calculator.NewtonRoot(value, degree, precision);
-            double PowResult = Math.Pow(value, 1d / degree);
-            return Math.Abs(NewtonResult - PowResult);
+            Calculator.NewtonRoot(4, 0, 0.00001);
         }
     }
 }
