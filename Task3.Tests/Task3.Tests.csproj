@@ -51,7 +51,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="BinaryGCDTest.cs" />
-    <Compile Include="EuclidianGCDTest.cs" />
+    <Compile Include="EuclideanGCDTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

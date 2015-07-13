@@ -57,7 +57,6 @@ namespace Task3.Library
         /// <exception cref="ArgumentException">Thrown when less than two <see cref="numbers"/> provided.</exception>
         public static int EuclideanGCD(params int[] numbers)
         {
-            int gdc = 1;
             if (numbers.Length < 2)
             {
                 throw new ArgumentException("Can't calculate GCD of less than two numbers.");
@@ -114,7 +113,6 @@ namespace Task3.Library
         /// <exception cref="ArgumentException">Thrown when less than two <see cref="numbers"/> provided.</exception>
         public static int BinaryGCD(params int[] numbers)
         {
-            int gdc = 1;
             if (numbers.Length < 2)
             {
                 throw new ArgumentException("Can't calculate GCD of less than two numbers.");
