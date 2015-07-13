@@ -24,8 +24,20 @@ namespace Task1.Tests
             int degree = Convert.ToInt32(TestContext.DataRow["Degree"]); 
             Double precision = Convert.ToDouble(TestContext.DataRow["Precision"]);
             bool exception = Convert.ToBoolean(TestContext.DataRow["Exception"]);
-            Double actual = Calculator.NewtonRoot(value, degree, precision);
-            Assert.AreEqual(Math.Pow(value, 1d / degree), actual, precision);
+            bool catched = false;
+            try
+            {
+                Double actual = Calculator.NewtonRoot(value, degree, precision);
+                Assert.AreEqual(Math.Pow(value, 1d / degree), actual, precision);
+
+            }
+            catch(ArgumentException e){
+                catched = true;
+            }
+            if (catched != exception)
+            {
+                Assert.Fail();
+            }
         }
     }
 }
