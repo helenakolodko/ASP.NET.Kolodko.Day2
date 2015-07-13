@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Task3.Library;
 
@@ -7,54 +8,24 @@ namespace Task1.Tests
     [TestClass]
     public class NewtonRootTest
     {
-        [TestMethod]
-        public void SquareRootOfFourEqualsTwo()
+        private const string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=..\\..;Extended Properties=\"text;HDR=Yes;FMT=Delimited\"";
+        private TestContext testContextInstance;
+        public TestContext TestContext
         {
-            double value = 4;
-            int degree = 2;
-            double precision = 0.00001;
-            Assert.AreEqual(Math.Pow(value, 1d / degree), Calculator.NewtonRoot(value, degree, precision), precision);
+            get { return testContextInstance; }
+            set { testContextInstance = value; }
         }
 
-        [TestMethod]
-        public void FourthRootOfEightyOneEqualsThree()
+        [DataSource(connectionString, "NewtonRootTestData#csv")]
+        [TestMethod()]
+        public void NewtonRoot_FromDataSourceTest()
         {
-            double value = 81;
-            int degree = 4;
-            double precision = 0.00001;
-            Assert.AreEqual(Math.Pow(value, 1d / degree), Calculator.NewtonRoot(value, degree, precision), precision);
-        }
-
-        [TestMethod]
-        public void ThirdRootOfEightThousandthEqualsTwoTenth()
-        {
-            double value = 0.008;
-            int degree = 2;
-            double precision = 0.00001;
-            Assert.AreEqual(Math.Pow(value, 1d / degree), Calculator.NewtonRoot(value, degree, precision), precision);
-        }
-
-        [TestMethod]
-        public void TenthRootOfOneThousandTwentyFourEqualsTwo()
-        {
-            double value = 1024;
-            int degree = 2;
-            double precision = 0.00001;
-            Assert.AreEqual(Math.Pow(value, 1d / degree), Calculator.NewtonRoot(value, degree, precision), precision);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void SquareRootOfMinusFourThrowsException()
-        {
-            Calculator.NewtonRoot(-4, 2, 0.00001);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void ZeroRootOfFourThrowsException()
-        {
-            Calculator.NewtonRoot(4, 0, 0.00001);
+            Double value = Convert.ToDouble(TestContext.DataRow["Value"]);
+            int degree = Convert.ToInt32(TestContext.DataRow["Degree"]); 
+            Double precision = Convert.ToDouble(TestContext.DataRow["Precision"]);
+            bool exception = Convert.ToBoolean(TestContext.DataRow["Exception"]);
+            Double actual = Calculator.NewtonRoot(value, degree, precision);
+            Assert.AreEqual(Math.Pow(value, 1d / degree), actual, precision);
         }
     }
 }

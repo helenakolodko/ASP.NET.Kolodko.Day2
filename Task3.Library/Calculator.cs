@@ -44,7 +44,7 @@ namespace Task3.Library
         /// <param name="timeTaken">Stores time taken by calculation.</param>
         /// <param name="numbers">Natural numbers.</param>
         /// <returns>Greatest Common Devisor of <see cref="numbers"/>.</returns>
-        public static int EuclideanGCD(out TimeSpan timeTaken, params int[] numbers)
+        public static int EuclideanGCD(out long timeTaken, params int[] numbers)
         {
             return TimedEvaluation(out timeTaken, () => EuclideanGCD(numbers));
         }
@@ -64,7 +64,7 @@ namespace Task3.Library
             return ChainedEvaluation(numbers, EuclideanGCD);
         }
 
-        public static int EuclideanGCD(out TimeSpan timeTaken, int a, int b, int c)
+        public static int EuclideanGCD(out long timeTaken, int a, int b, int c)
         {
             return TimedEvaluation(out timeTaken, () => EuclideanGCD(a, b, c));
         }
@@ -74,7 +74,7 @@ namespace Task3.Library
             return EuclideanGCD(EuclideanGCD(a, b), c);
         }
 
-        public static int EuclideanGCD(out TimeSpan timeTaken, int a, int b)
+        public static int EuclideanGCD(out long timeTaken, int a, int b)
         {
             return TimedEvaluation(out timeTaken, () => EuclideanGCD(a, b));
         }
@@ -100,7 +100,7 @@ namespace Task3.Library
         /// <param name="timeTaken">Stores time taken by calculation.</param>
         /// <param name="numbers">Natural numbers.</param>
         /// <returns>Greatest Common Devisor of <see cref="numbers"/>.</returns>
-        public static int BinaryGCD(out TimeSpan timeTaken, params int[] numbers)
+        public static int BinaryGCD(out long timeTaken, params int[] numbers)
         {
             return TimedEvaluation(out timeTaken, () => BinaryGCD(numbers));
         }
@@ -120,7 +120,7 @@ namespace Task3.Library
             return ChainedEvaluation(numbers, EuclideanGCD);
         }
 
-        public static int BinaryGCD(out TimeSpan timeTaken, int a, int b, int c)
+        public static int BinaryGCD(out long timeTaken, int a, int b, int c)
         {
             return TimedEvaluation(out timeTaken, () => BinaryGCD(a, b, c));
         }
@@ -130,7 +130,7 @@ namespace Task3.Library
             return BinaryGCD(BinaryGCD(a, b), c);
         }
 
-        public static int BinaryGCD(out TimeSpan timeTaken, int a, int b)
+        public static int BinaryGCD(out long timeTaken, int a, int b)
         {
             return TimedEvaluation(out timeTaken, () => BinaryGCD(a, b));
         }
@@ -169,7 +169,7 @@ namespace Task3.Library
             return a << shift;
         }
 
-        private static int TimedEvaluation(out TimeSpan timeTaken, Func<int> method)
+        private static int TimedEvaluation(out long timeTaken, Func<int> method)
         {
             Stopwatch stopwatch = Stopwatch.StartNew();
             int result = method();
