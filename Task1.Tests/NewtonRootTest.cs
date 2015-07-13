@@ -5,7 +5,7 @@ using Task3.Library;
 namespace Task1.Tests
 {
     [TestClass]
-    public class NewtonRootTests
+    public class NewtonRootTest
     {
         [TestMethod]
         public void SquareRootOfFourEqualsTwo()

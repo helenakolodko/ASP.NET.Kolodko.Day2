@@ -10,6 +10,7 @@ namespace Task2.Library
     class HexademicalFormatter: IFormatProvider, ICustomFormatter
     {
         private IFormatProvider parent;
+        private static string digits = "0123456789ABCDEF";
         public HexademicalFormatter()
             : this(CultureInfo.CurrentCulture)  { }
         public HexademicalFormatter(IFormatProvider parent)
@@ -58,9 +59,9 @@ namespace Task2.Library
             {
                 byte digit = (byte)(value % 16);
                 value /= 16;
-                result.Append(digit.ToString("X"));
+                result.Append(digits[digit]);
             }
-            result.Append(value.ToString("X"));
+            result.Append(digits[value]);
             return result.ToString();
         }
     }
