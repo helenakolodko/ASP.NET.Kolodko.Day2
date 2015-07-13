@@ -173,7 +173,7 @@ namespace Task3.Library
         {
             Stopwatch stopwatch = Stopwatch.StartNew();
             int result = method();
-            timeTaken = stopwatch.Elapsed;
+            timeTaken = stopwatch.ElapsedTicks;
             return result;
         }
 
