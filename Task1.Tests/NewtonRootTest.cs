@@ -17,7 +17,7 @@ namespace Task1.Tests
         }
 
         [DataSource(connectionString, "NewtonRootTestData#csv")]
-        [TestMethod()]
+        [TestMethod]
         public void NewtonRoot_FromDataSourceTest()
         {
             Double value = Convert.ToDouble(TestContext.DataRow["Value"]);
@@ -28,7 +28,7 @@ namespace Task1.Tests
         }
 
         [DataSource(connectionString, "NewtonRootTestDataExceptions#csv")]
-        [TestMethod()]
+        [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void NewtonRoot_FromDataSourceTest_ThrowsException()
         {
