@@ -10,7 +10,6 @@ namespace Task2.Library
     public class HexademicalFormatter: IFormatProvider, ICustomFormatter
     {
         private IFormatProvider parent;
-        private static string digits = "0123456789ABCDEF";
         public HexademicalFormatter()
             : this(CultureInfo.CurrentCulture)  { }
         public HexademicalFormatter(IFormatProvider parent)
@@ -55,6 +54,7 @@ namespace Task2.Library
 
         private static string ToHexademical(long value, int bits)
         {
+            string digits = "0123456789ABCDEF";
             char[] result = new char[bits/4];
             ulong valueRepresentaion = GetRepresentation(value);
             for (int i = result.Length - 1; valueRepresentaion > 0 && i >= 0; i--)
